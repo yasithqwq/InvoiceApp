@@ -9,5 +9,7 @@ namespace Invoice.Domain.Interfaces.Persistence
 {
     public interface IInvoiceItemRepository : IRepository<InvoiceItem>
     {
+        Task<IEnumerable<InvoiceItem>> GetItemsAsyncByDescription(string description);
+        Task<IEnumerable<InvoiceItem>> GetItemsAsyncByDate(string date);
     }
 }

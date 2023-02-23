@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Invoice.Domain\Invoice.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Invoices\Queries\" />
+  </ItemGroup>
+
 </Project>

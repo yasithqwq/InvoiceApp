@@ -37,34 +37,24 @@ namespace Invoice.Infrastructure.CosmosDbData.Repository
 
         // Use Cosmos DB Parameterized Query to avoid SQL Injection.
         // Get by Category is also an example of single partition read, where get by title will be a cross partition read
-        public async Task<IEnumerable<InvoiceItem>> GetItemsAsyncByCategory(string category)
+        public async Task<IEnumerable<InvoiceItem>> GetItemsAsyncByDate(string date)
         {
-            List<InvoiceItem> results = new List<InvoiceItem>();
-            string query = @$"SELECT c.Name FROM c WHERE c.Category = @Category";
+            string query = @$"SELECT * FROM c WHERE c.Date = '{date}'";
 
-            QueryDefinition queryDefinition = new QueryDefinition(query)
-                                                    .WithParameter("@Category", category);
-            string queryString = queryDefinition.QueryText;
+            IEnumerable<InvoiceItem> entities = await this.GetItemsAsync(query);
 
-            IEnumerable<InvoiceItem> entities = await this.GetItemsAsync(queryString);
-
-            return results;
+            return entities;
         }
 
         // Use Cosmos DB Parameterized Query to avoid SQL Injection.
         // Get by Title is also an example of cross partition read, where Get by Category will be single partition read
-        public async Task<IEnumerable<InvoiceItem>> GetItemsAsyncByTitle(string title)
+        public async Task<IEnumerable<InvoiceItem>> GetItemsAsyncByDescription(string description)
         {
-            List<InvoiceItem> results = new List<InvoiceItem>();
-            string query = @$"SELECT c.Name FROM c WHERE c.Title = @Title";
+            string query = @$"SELECT * FROM c WHERE c.Description = '{description}'";
 
-            QueryDefinition queryDefinition = new QueryDefinition(query)
-                                                    .WithParameter("@Title", title);
-            string queryString = queryDefinition.QueryText;
+            IEnumerable<InvoiceItem> entities = await this.GetItemsAsync(query);
 
-            IEnumerable<InvoiceItem> entities = await this.GetItemsAsync(queryString);
-
-            return results;
+            return entities;
         }
     }
 }

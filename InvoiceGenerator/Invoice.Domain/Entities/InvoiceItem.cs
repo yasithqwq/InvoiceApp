@@ -1,4 +1,5 @@
 ﻿using Invoice.Domain.Entities.Base;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Invoice.Domain.Entities
 {
     public class InvoiceItem : BaseEntity
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Description { get; set; }
         public decimal TotalAmount { get; set; }
         public List<InvoiceLine> InvoiceLines { get; set; }

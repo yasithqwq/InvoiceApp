@@ -1,18 +1,12 @@
 ﻿using Invoice.Application;
-using Invoice.Domain.Interfaces.Persistence;
 using Invoice.Infrastructure;
 using Invoice.Infrastructure.AppSettings;
-using Invoice.Infrastructure.CosmosDbData.Repository;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 [assembly: FunctionsStartup(typeof(Invoice.Api.Startup))]
 namespace Invoice.Api
@@ -44,10 +38,9 @@ namespace Invoice.Api
             CosmosDbSettings cosmosDbConfig = configuration.GetSection("ConnectionStrings:CleanArchitectureCosmosDB").Get<CosmosDbSettings>();
             // register CosmosDB client and data repositories
             builder.Services.AddCosmosDb(cosmosDbConfig.EndpointUrl,
-                                 cosmosDbConfig.PrimaryKey,
-            cosmosDbConfig.DatabaseName,
-                                 cosmosDbConfig.Containers);
-            builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
+                                        cosmosDbConfig.PrimaryKey,
+                                        cosmosDbConfig.DatabaseName,
+                                        cosmosDbConfig.Containers);
         }
     }
 }

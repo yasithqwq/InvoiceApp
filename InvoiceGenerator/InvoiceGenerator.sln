@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Api", "Invoice.Api\Invoice.Api.csproj", "{BB2F0616-4927-40B0-B76B-825E07CBBBB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invoice.Api", "Invoice.Api\Invoice.Api.csproj", "{BB2F0616-4927-40B0-B76B-825E07CBBBB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Application", "Invoice.Application\Invoice.Application.csproj", "{E5B8EA47-AA53-4FC1-9567-598D56293CE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invoice.Application", "Invoice.Application\Invoice.Application.csproj", "{E5B8EA47-AA53-4FC1-9567-598D56293CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Domain", "Invoice.Domain\Invoice.Domain.csproj", "{12BFFBB0-D52B-4627-BDC9-4182F4DC8F8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invoice.Domain", "Invoice.Domain\Invoice.Domain.csproj", "{12BFFBB0-D52B-4627-BDC9-4182F4DC8F8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Infrastructure", "Invoice.Infrastructure\Invoice.Infrastructure.csproj", "{8CC5808D-A77B-4E84-ADA6-27F39DBFBDEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invoice.Infrastructure", "Invoice.Infrastructure\Invoice.Infrastructure.csproj", "{8CC5808D-A77B-4E84-ADA6-27F39DBFBDEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{04039D00-4BA5-4996-B83B-B69C04429F06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Application.UnitTests", "Invoice.Application.UnitTests\Invoice.Application.UnitTests.csproj", "{03680364-C73F-4321-982E-E86FD7765EEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Domain.UnitTests", "Invoice.Domain.UnitTests\Invoice.Domain.UnitTests.csproj", "{49CD1EC8-2337-449B-B1E2-D32959DAFE5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{8CC5808D-A77B-4E84-ADA6-27F39DBFBDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CC5808D-A77B-4E84-ADA6-27F39DBFBDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CC5808D-A77B-4E84-ADA6-27F39DBFBDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03680364-C73F-4321-982E-E86FD7765EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03680364-C73F-4321-982E-E86FD7765EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03680364-C73F-4321-982E-E86FD7765EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03680364-C73F-4321-982E-E86FD7765EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CD1EC8-2337-449B-B1E2-D32959DAFE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CD1EC8-2337-449B-B1E2-D32959DAFE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CD1EC8-2337-449B-B1E2-D32959DAFE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CD1EC8-2337-449B-B1E2-D32959DAFE5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{03680364-C73F-4321-982E-E86FD7765EEF} = {04039D00-4BA5-4996-B83B-B69C04429F06}
+		{49CD1EC8-2337-449B-B1E2-D32959DAFE5F} = {04039D00-4BA5-4996-B83B-B69C04429F06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70289D6D-6F84-49C6-8AAE-41212E5866CC}

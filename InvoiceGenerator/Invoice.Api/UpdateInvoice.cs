@@ -7,27 +7,35 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Invoice.Application.Invoices.Commands;
+using Invoice.Application.Invoices.Dtos;
+using Invoice.Infrastructure.CosmosDbData.Interfaces;
+using MediatR;
 
 namespace Invoice.Api
 {
-    public static class UpdateInvoice
+    public class UpdateInvoice
     {
+        private readonly IMediator _mediator;
+
+        public UpdateInvoice(IMediator mediator)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+
         [FunctionName("UpdateInvoice")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "put", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
-            string name = req.Query["name"];
+            log.LogInformation("C# HTTP trigger UpdateInvoice function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            InvoiceItemDto data = JsonConvert.DeserializeObject<InvoiceItemDto>(requestBody);
+            InvoiceItemDto response = await _mediator.Send(new UpdateInvoiceCommand() { InvoiceItemDto = data });
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            string responseMessage = $"This HTTP triggered function UpdateInvoice executed successfully.\n";
+            responseMessage += $"Updated Object - \n {JsonConvert.SerializeObject(response)}.";
 
             return new OkObjectResult(responseMessage);
         }

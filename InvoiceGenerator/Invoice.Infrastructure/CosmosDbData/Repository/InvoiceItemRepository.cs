@@ -32,7 +32,7 @@ namespace Invoice.Infrastructure.CosmosDbData.Repository
         /// <returns></returns>
         public override PartitionKey ResolvePartitionKey(string entityId) => new PartitionKey(entityId.Split(':')[0]);
 
-        public InvoiceItemRepository(ICosmosDbContainerFactory factory, CosmosDbSeed seed) : base(factory)
+        public InvoiceItemRepository(ICosmosDbContainerFactory factory) : base(factory)
         {}
 
         // Use Cosmos DB Parameterized Query to avoid SQL Injection.

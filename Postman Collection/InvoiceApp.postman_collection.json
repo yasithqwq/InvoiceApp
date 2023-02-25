@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "5804592a-c9ca-4c71-93e4-73b600233c25",
+		"name": "InvoiceApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "420624"
+	},
+	"item": [
+		{
+			"name": "CreateInvoiceWithInvoiceLines",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Date\": \"23_02_2023\",\r\n    \"Description\": \"Invoice Number - 1\",\r\n    \"TotalAmount\": 4.2,\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Amount\": 6.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Amount\": 7.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7123/api/CreateInvoiceWithInvoiceLines",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7123",
+					"path": [
+						"api",
+						"CreateInvoiceWithInvoiceLines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateInvoice",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Date\": \"23_02_2023\",\r\n    \"Description\": \"Invoice Number - X\",\r\n    \"TotalAmount\": 4.2,\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Amount\": 6.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Amount\": 7.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ],\r\n    \"id\": \"23_02_2023:80a4422c-582a-49aa-b5b2-e8c41003aa58\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7123/api/UpdateInvoice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7123",
+					"path": [
+						"api",
+						"UpdateInvoice"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

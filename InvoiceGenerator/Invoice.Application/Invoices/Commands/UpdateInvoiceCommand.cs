@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.Invoices.Commands
 {
-    public class UpdateInvoiceCommand : IRequest<InvoiceItemDto>
+    public class UpdateInvoiceCommand : IRequest<UpdateInvoiceItemDto>
     {
-        public InvoiceItemDto InvoiceItemDto { get; set; }
+        public UpdateInvoiceItemDto InvoiceItemDto { get; set; }
     }
 }

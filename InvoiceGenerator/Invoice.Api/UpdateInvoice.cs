@@ -11,6 +11,7 @@ using Invoice.Application.Invoices.Commands;
 using Invoice.Application.Invoices.Dtos;
 using Invoice.Infrastructure.CosmosDbData.Interfaces;
 using MediatR;
+using Microsoft.Azure.Cosmos;
 
 namespace Invoice.Api
 {
@@ -30,14 +31,33 @@ namespace Invoice.Api
         {
             log.LogInformation("C# HTTP trigger UpdateInvoice function processed a request.");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            InvoiceItemDto data = JsonConvert.DeserializeObject<InvoiceItemDto>(requestBody);
-            InvoiceItemDto response = await _mediator.Send(new UpdateInvoiceCommand() { InvoiceItemDto = data });
+            try
+            {
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                UpdateInvoiceItemDto data = JsonConvert.DeserializeObject<UpdateInvoiceItemDto>(requestBody);
+                UpdateInvoiceItemDto response = await _mediator.Send(new UpdateInvoiceCommand() { InvoiceItemDto = data });
 
-            string responseMessage = $"This HTTP triggered function UpdateInvoice executed successfully.\n";
-            responseMessage += $"Updated Object - \n {JsonConvert.SerializeObject(response)}.";
+                string responseMessage = $"UpdateInvoice executed successfully.";
 
-            return new OkObjectResult(responseMessage);
+                UpdatedResultDto resultDto = new UpdatedResultDto
+                {
+                    IsSuccess = true,
+                    ResponseMessage = responseMessage,
+                    UpdatedObject = response,
+                    UpdatedObjectId = response.Id
+                };
+
+                return new OkObjectResult(resultDto);
+            }
+            catch (Exception ex)
+            {
+                UpdatedResultDto resultDto = new UpdatedResultDto
+                {
+                    IsSuccess = false,
+                    ResponseMessage = ex.Message
+                };
+                return new BadRequestObjectResult(resultDto);
+            }
         }
     }
 }

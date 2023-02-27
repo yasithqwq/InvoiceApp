@@ -17,16 +17,15 @@ namespace Invoice.Application.IntegrationTests.InvoiceTests
             var invoice = await FirstAsync<InvoiceItem>();
             invoice.Description = "Updated Invoice by Unit Test";
 
-            InvoiceItemDto invoiceDto = new InvoiceItemDto()
+            UpdateInvoiceItemDto invoiceDto = new  UpdateInvoiceItemDto()
             {
                 Id= invoice.Id,
-                Date = invoice.Date,
                 Description = invoice.Description,
                 TotalAmount = invoice.TotalAmount
             };
 
 
-            InvoiceItemDto response = await SendAsync(new UpdateInvoiceCommand() { InvoiceItemDto = invoiceDto });
+            UpdateInvoiceItemDto response = await SendAsync(new UpdateInvoiceCommand() { InvoiceItemDto = invoiceDto });
             response.Description.Should().BeEquivalentTo("Updated Invoice by Unit Test");
         }
     }

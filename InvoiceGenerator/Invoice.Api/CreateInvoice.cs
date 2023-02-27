@@ -14,6 +14,7 @@ using Invoice.Infrastructure.CosmosDbData.Interfaces;
 using Invoice.Application.Invoices.Dtos;
 using MediatR;
 using Invoice.Application.Invoices.Commands;
+using Microsoft.Azure.Cosmos;
 
 namespace Invoice.Api
 {
@@ -22,30 +23,51 @@ namespace Invoice.Api
         private readonly ICosmosDbSeed _seed;
         private readonly IMediator _mediator;
 
-        public CreateInvoice(IMediator mediator,ICosmosDbSeed seed)
+        public CreateInvoice(IMediator mediator, ICosmosDbSeed seed)
         {
             _mediator = mediator;
             this._seed = seed ?? throw new ArgumentNullException(nameof(seed));
         }
 
-        [FunctionName("CreateInvoiceWithInvoiceLines")]
+        [FunctionName("CreateInvoice")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger CreateInvoiceWithInvoiceLines function processed a request.");
 
-            //Please uncomment this if you need some seed data
-            //await _seed.InvoiceItemSeed();
+            try
+            {
+                //Please uncomment this if you need some seed data
+                //await _seed.InvoiceItemSeed();
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            InvoiceItemDto data = JsonConvert.DeserializeObject<InvoiceItemDto>(requestBody);
-            InvoiceItemDto response = await _mediator.Send(new CreateInvoiceCommand() { InvoiceItemDto = data });
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                InvoiceItemDto data = JsonConvert.DeserializeObject<InvoiceItemDto>(requestBody);
+                InvoiceItemDto response = await _mediator.Send(new CreateInvoiceCommand() { InvoiceItemDto = data });
 
-            string responseMessage = $"This HTTP triggered function CreateInvoiceWithInvoiceLines executed successfully.\n";
-            responseMessage += $"Created Object Id - {response.Id}.";
+                string responseMessage = $"CreateInvoiceWithInvoiceLines executed successfully.";
+                CreatedResultDto resultObj = new CreatedResultDto
+                {
+                    IsSuccess = true,
+                    CreatedObjectId = response.Id,
+                    ResponseMessage = responseMessage,
+                    CreatedObject = response
+                };
 
-            return new OkObjectResult(responseMessage);
+                var result = new ObjectResult(resultObj);
+                result.StatusCode = StatusCodes.Status201Created;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CreatedResultDto resultObj = new CreatedResultDto
+                {
+                    IsSuccess = false,
+                    ResponseMessage = ex.Message
+                };
+
+                return new BadRequestObjectResult(resultObj);
+            }
         }
     }
 }

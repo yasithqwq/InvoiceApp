@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.Invoices.Commands
 {
-    public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceCommand, InvoiceItemDto>
+    public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceCommand, UpdateInvoiceItemDto>
     {
         private readonly IInvoiceItemRepository _repo;
         private readonly IMapper _mapper;
@@ -22,19 +22,34 @@ namespace Invoice.Application.Invoices.Commands
             this._repo = repo ?? throw new ArgumentNullException(nameof(repo));
             _mapper = mapper;
         }
-        public async Task<InvoiceItemDto> Handle(UpdateInvoiceCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateInvoiceItemDto> Handle(UpdateInvoiceCommand request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<InvoiceItemDto, InvoiceItem>(request.InvoiceItemDto);
+            var entity = _mapper.Map<UpdateInvoiceItemDto, InvoiceItem>(request.InvoiceItemDto);
             InvoiceItem entityToUpdate = await _repo.GetItemAsync(entity.Id);
             if (entityToUpdate == null)
             {
                 throw new EntityNotFoundException(nameof(entity), entity.Id);
             }
+            entityToUpdate.Description = entity.Description;
+            entityToUpdate.TotalAmount = entity.TotalAmount;
+            entityToUpdate.InvoiceLines = new List<InvoiceLine>();
 
-            await _repo.UpdateItemAsync(entity.Id, entity);
+            decimal totalAmount = 0;
+            foreach (InvoiceLine lineItem in entity.InvoiceLines)
+            {
+                InvoiceLine itemLine = new InvoiceLine();
+                itemLine.Quantity = lineItem.Quantity;
+                itemLine.UnitPrice = lineItem.UnitPrice;
+                itemLine.LineAmount = lineItem.LineAmount;
+                itemLine.Amount = itemLine.Quantity * itemLine.UnitPrice;
+                entityToUpdate.InvoiceLines.Add(itemLine);
+                totalAmount += itemLine.Amount;
+            }
+            entityToUpdate.TotalAmount = totalAmount;
+            await _repo.UpdateItemAsync(entityToUpdate.Id, entityToUpdate);
 
             var updatedEntry = await _repo.GetItemAsync(entity.Id);
-            var updatedDto = _mapper.Map<InvoiceItem, InvoiceItemDto>(updatedEntry);
+            var updatedDto = _mapper.Map<InvoiceItem, UpdateInvoiceItemDto>(updatedEntry);
             return updatedDto;
         }
     }

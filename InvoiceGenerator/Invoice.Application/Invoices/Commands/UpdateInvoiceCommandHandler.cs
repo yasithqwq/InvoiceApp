@@ -40,7 +40,7 @@ namespace Invoice.Application.Invoices.Commands
                 InvoiceLine itemLine = new InvoiceLine();
                 itemLine.Quantity = lineItem.Quantity;
                 itemLine.UnitPrice = lineItem.UnitPrice;
-                itemLine.LineAmount = lineItem.LineAmount;
+                itemLine.LineAmount = itemLine.Quantity * itemLine.UnitPrice;
                 itemLine.Amount = itemLine.Quantity * itemLine.UnitPrice;
                 entityToUpdate.InvoiceLines.Add(itemLine);
                 totalAmount += itemLine.Amount;

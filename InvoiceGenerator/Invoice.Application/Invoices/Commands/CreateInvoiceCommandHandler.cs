@@ -28,7 +28,8 @@ namespace Invoice.Application.Invoices.Commands
             foreach (InvoiceLine itemLine in entity.InvoiceLines)
             {
                 itemLine.Amount = itemLine.Quantity * itemLine.UnitPrice;
-                totalAmount += itemLine.LineAmount;
+                itemLine.LineAmount = itemLine.Quantity * itemLine.UnitPrice;
+                totalAmount += itemLine.Amount;
             }
             entity.TotalAmount = totalAmount;
             await _repo.AddItemAsync(entity);

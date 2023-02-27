@@ -2,6 +2,7 @@
 
 namespace Invoice.Application.IntegrationTests.InvoiceTests
 {
+    using Ardalis.Specification;
     using FluentAssertions;
     using Invoice.Application.Invoices.Commands;
     using Invoice.Application.Invoices.Dtos;
@@ -23,7 +24,19 @@ namespace Invoice.Application.IntegrationTests.InvoiceTests
                 Description = invoice.Description,
                 TotalAmount = invoice.TotalAmount
             };
-
+            invoiceDto.InvoiceLines = new List<InvoiceLineDto>();
+            decimal totalAmount = 0;
+            foreach (InvoiceLine lineItem in invoice.InvoiceLines)
+            {
+                InvoiceLineDto itemLine = new InvoiceLineDto();
+                itemLine.Quantity = lineItem.Quantity;
+                itemLine.UnitPrice = lineItem.UnitPrice;
+                itemLine.LineAmount = itemLine.Quantity * itemLine.UnitPrice;
+                itemLine.Amount = itemLine.Quantity * itemLine.UnitPrice;
+                invoiceDto.InvoiceLines.Add(itemLine);
+                totalAmount += itemLine.Amount;
+            }
+            invoiceDto.TotalAmount = totalAmount;
 
             UpdateInvoiceItemDto response = await SendAsync(new UpdateInvoiceCommand() { InvoiceItemDto = invoiceDto });
             response.Description.Should().BeEquivalentTo("Updated Invoice by Unit Test");

@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Date\": \"23_02_2023\",\r\n    \"Description\": \"Invoice Number - 1\",\r\n    \"TotalAmount\": 4.2,\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Amount\": 6.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Amount\": 7.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"Date\": \"23_02_2023\",\r\n    \"Description\": \"Invoice Number - 1\",\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,7 +21,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:7123/api/CreateInvoiceWithInvoiceLines",
+					"raw": "http://localhost:7123/api/CreateInvoice",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -29,7 +29,7 @@
 					"port": "7123",
 					"path": [
 						"api",
-						"CreateInvoiceWithInvoiceLines"
+						"CreateInvoice"
 					]
 				}
 			},
@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Date\": \"23_02_2023\",\r\n    \"Description\": \"Invoice Number - X\",\r\n    \"TotalAmount\": 4.2,\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Amount\": 6.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Amount\": 7.2,\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ],\r\n    \"id\": \"23_02_2023:80a4422c-582a-49aa-b5b2-e8c41003aa58\"\r\n}",
+					"raw": "{\r\n    \"Description\": \"Invoice Number - X\",\r\n    \"InvoiceLines\": [\r\n        {\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 2.2,\r\n            \"LineAmount\": 7.2\r\n        },\r\n        {\r\n            \"Quantity\": 2,\r\n            \"UnitPrice\": 3.2,\r\n            \"LineAmount\": 8.2\r\n        }\r\n    ],\r\n    \"id\": \"23_02_2023:96905176-114d-4a97-bf0b-d8586ff2fc53\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
